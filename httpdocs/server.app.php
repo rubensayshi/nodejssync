@@ -1,18 +1,16 @@
 <?php 
 
-function getMyDB()
-{
-	static $db = null;
-	
-	if (is_null($db)) {
-		// connect
-		$mongodb = new Mongo();
-		
-		// select a database
-		$db = $mongodb->myserverdb;
-	}
-	
-	return $db;
+require dirname(dirname(__FILE__)) . '/inc/app.inc.php';
+MongoDBHelper::setName('myserverdb');
+
+if (isset($_GET['action']) && $_GET['action'] == 'delete' && isset($_GET['_id'])) {
+	node_delete($_GET['_id']);
 }
 
-require './app.php';
+// find everything in the collection
+$nodes = MongoDBHelper::getDb()->nodes->find();
+
+echo tpl_render('demo.tpl.php', array(
+	'nodes'		=> $nodes,
+	'hideform'	=> true,
+));
