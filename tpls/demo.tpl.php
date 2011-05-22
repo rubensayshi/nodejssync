@@ -42,3 +42,5 @@
 </form>
 
 <?php endif; ?>
+
+<a href="javascript:window.location.href=window.location.href" style="position: absolute; bottom: 5px; right: 5px;">[refresh]</a>
